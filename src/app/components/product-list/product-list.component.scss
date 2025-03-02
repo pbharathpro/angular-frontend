@@ -33,7 +33,11 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-
+.filter-container{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 .products-container {
   padding: 40px 20px;
   border-radius: 12px;

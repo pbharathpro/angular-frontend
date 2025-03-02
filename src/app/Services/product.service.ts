@@ -13,13 +13,13 @@ export class ProductService {
   private apiUrl = `${apiUrl}`;
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
+  getProducts(filters:any={}): Observable<Product[]> {
     return this.http
-      .get<{ data:Product[] }>(`${this.apiUrl}/products`, { withCredentials: true })
+      .get<{ data:Product[] }>(`${this.apiUrl}/products`, { params: filters, withCredentials: true })
       .pipe(
         map((response) => {
           console.log('API Response:', response);
-          return response.data;
+          return response.data; //using map to get data array from response, contains { data: Product[] }
         })
       );
   }
@@ -30,5 +30,4 @@ export class ProductService {
     return this.http.post<Product>(`${this.apiUrl}/products`, product);
   }
 }
-export { Product };
 

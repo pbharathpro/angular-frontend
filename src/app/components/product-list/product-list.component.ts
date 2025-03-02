@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../../Interfaces/product.interface';
 import { CartItem } from '../../Interfaces/cartItems.interface';
 import { SearchService } from '../../Services/search.service';
-
+import { categoryList } from 'src/app/constants/productCategories';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -17,6 +17,8 @@ export class ProductListComponent implements OnInit {
   p: number = 1;
   itemsPerPage: number = 24;
   totalProduct: number = 0;
+  filters:any={}
+  categories = categoryList
 
   constructor(
     private productService: ProductService,
@@ -25,9 +27,15 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
+    this.loadProducts();
+  }
+  applyFilters():void{
+    this.filters.isActive = this.filters.isActive ? "true" : "";
+    this.loadProducts();
+  }
+  loadProducts():void{
+    this.productService.getProducts(this.filters).subscribe({
       next: (data) => {
-        console.log("product-data",data)
         this.products = data;
         this.totalProduct = data.length;
         this.filteredProducts = data;
