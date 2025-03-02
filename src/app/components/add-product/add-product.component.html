@@ -1,98 +1,62 @@
 <div class="container">
-    <div class="form-container">
-      <h2 class="form-title">Add Product</h2>
-      <form (ngSubmit)="onSubmit()" class="product-form">
-        <div class="form-group">
-          <label for="productName">Product Name</label>
-          <input 
-            id="productName" 
-            type="text" 
-            [(ngModel)]="product.productName" name="productName"
-            placeholder="Enter product name"
-            #productName="ngModel"
-            required
-            minlength="3" 
-            maxlength="32"
-            pattern="^[A-Za-z\s0-9]+$"  
-          >
-          <div class="error-message" *ngIf="productName.invalid && (productName.dirty || productName.touched)">
-            <div *ngIf="productName.errors?.['required']">Product name is required</div>
-            <div *ngIf="productName.errors?.['minlength']">Product name must be at least 3 characters long</div>
-            <div *ngIf="productName.errors?.['maxlength']">Product name must be less than 50 characters</div>
-            <div *ngIf="productName.errors?.['pattern']">Product name can only contain letters and spaces</div>
-          </div>
+  <div class="form-container">
+    <h2 class="form-title">Add Product</h2>
+    <form (ngSubmit)="onSubmit()" class="product-form">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input id="productName" type="text" [(ngModel)]="product.productName" name="productName"
+          placeholder="Enter product name" #productName="ngModel" required minlength="3" maxlength="32"
+          pattern="^[A-Za-z\s0-9]+$">
+        <div class="error-message" *ngIf="productName.invalid && (productName.dirty || productName.touched)">
+          <div *ngIf="productName.errors?.['required']">Product name is required</div>
+          <div *ngIf="productName.errors?.['minlength']">Product name must be at least 3 characters long</div>
+          <div *ngIf="productName.errors?.['maxlength']">Product name must be less than 50 characters</div>
+          <div *ngIf="productName.errors?.['pattern']">Product name can only contain letters and spaces</div>
         </div>
-        <div class="form-group">
-          <label for="category">Category</label>
-          <input 
-            id="category" 
-            type="text" 
-            [(ngModel)]="product.category" name="category"
-            placeholder="Enter category name"
-            #category="ngModel"
-            required
-            minlength="3" 
-            maxlength="32"
-            pattern="^[A-Za-z\s]+$" 
-          >
-          <div class="error-message" *ngIf="category.invalid && (category.dirty || category.touched)">
-            <div *ngIf="category.errors?.['required']">Category is required</div>
-            <div *ngIf="category.errors?.['minlength']">Category must be at least 3 characters long</div>
-            <div *ngIf="category.errors?.['maxlength']">Category must be less than 50 characters</div>
-            <div *ngIf="category.errors?.['pattern']">Category can only contain letters and spaces</div>
-          </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" [(ngModel)]="product.category" name="category" #category="ngModel" required>
+          <option value="" disabled selected>Select a category</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+        <div class="error-message" *ngIf="category.invalid && (category.dirty || category.touched)">
+          <div *ngIf="category.errors?.['required']">Category is required</div>
         </div>
-  
-        <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <input 
-              id="quantity" 
-              type="number" 
-              [(ngModel)]="product.quantity" name="quantity"
-              placeholder="Enter quantity"
-            >
-            <div class="error-message" *ngIf="product.quantity <= 0">
-              Quantity must be greater than 0
-            </div>
-          </div>
-    
-          <div class="form-group">
-            <label for="price">Price</label>
-            <input 
-              id="price" 
-              type="number" 
-              [(ngModel)]="product.price" name="price"
-              placeholder="Enter price"
-            >
-            <div class="error-message" *ngIf="product.price <= 0">
-              Price must be greater than 0
-            </div>
-          </div>
-    
-          <div class="form-group checkbox-group">
-            <label class="checkbox-label">
-              <input 
-                type="checkbox" 
-                [(ngModel)]="product.isActive" name="isActive"
-              >
-              Active
-            </label>
-          </div>
-    
-  
-        <div class="button-group">
-          <button type="button" class="btn-secondary" (click)="resetForm()">
-            Cancel
-          </button>
-          <button 
-            type="submit" 
-            class="btn-primary"
-            [disabled]="!isValid()"
-          >
-            Add Product
-          </button>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="number" [(ngModel)]="product.quantity" name="quantity" placeholder="Enter quantity">
+        <div class="error-message" *ngIf="product.quantity <= 0">
+          Quantity must be greater than 0
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input id="price" type="number" [(ngModel)]="product.price" name="price" placeholder="Enter price">
+        <div class="error-message" *ngIf="product.price <= 0">
+          Price must be greater than 0
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="product.isActive" name="isActive">
+          Active
+        </label>
+      </div>
+
+
+      <div class="button-group">
+        <button type="button" class="btn-secondary" (click)="resetForm()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="!isValid()">
+          Add Product
+        </button>
+      </div>
+    </form>
   </div>
-  
+</div>

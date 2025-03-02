@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './add-product.component';
-import { ProductService } from '../product.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ProductService } from 'src/app/Services/product.service';
 
 describe('AddProductComponent', () => {
   let component: AddProductComponent;

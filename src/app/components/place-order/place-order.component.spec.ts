@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlaceOrderComponent } from './place-order.component';
-import { OrderService } from '../order.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { OrderService } from 'src/app/Services/order.service';
 
 describe('PlaceOrderComponent', () => {
   let component: PlaceOrderComponent;

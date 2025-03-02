@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { OrderService } from './Services/order.service';
-import { OrderRequest } from './Services/order.service'; 
+import { OrderService } from './order.service';
+import { OrderRequest } from '../Interfaces/order.interface';
 
 describe('OrderService', () => {
   let service: OrderService;
@@ -21,7 +21,7 @@ describe('OrderService', () => {
 
   it('should send an order request and receive a response', () => {
     const orderRequest: OrderRequest = {
-      customerId: '9ca135b5-655c-4389-965a-faea64b05e5c',
+      userId: '9ca135b5-655c-4389-965a-faea64b05e5c',
       productId: '5501ada8-6f36-4bc2-bddd-0af637205dec',
       quantity: 2,
     };

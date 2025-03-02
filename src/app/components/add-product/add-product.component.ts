@@ -9,6 +9,22 @@ import { ToastrService } from 'ngx-toastr';
 
 })
 export class AddProductComponent {
+  categories: string[] = [
+    "Electronics", "Appliances", "Furniture", "Decor", "Outdoor", 
+    "Clothing", "Shoes", "Accessories", "Activewear", "Underwear & Loungewear",
+    "Kitchen & Dining", "Bedding & Bath", "Home Storage & Organization", 
+    "Pets", "Home Improvement", "Makeup", "Skincare", "Hair Care", 
+    "Fragrance", "Personal Care Appliances", "Wellness", "Books", 
+    "Movies & TV", "Music", "Video Games", "Musical Instruments",
+    "Sports Equipment", "Outdoor Recreation", "Cycling", "Water Sports",
+    "Travel", "Toys", "Games", "Kids' Furniture & Decor", 
+    "Car Parts & Accessories", "Motorcycle Parts & Accessories",
+    "Automotive Electronics", "Office Supplies", "Stationery", 
+    "Office Furniture", "Grocery", "Beverages", "Gourmet Food", 
+    "Industrial Supplies", "Scientific Supplies", "Commercial Equipment",
+    "Art Supplies", "Craft Supplies", "Sewing & Knitting", 
+    "Gift Baskets", "Personalized Gifts", "Gift Cards"
+  ].map(category => category.toLowerCase());
   product={
     productName: '',
     category: '',
@@ -26,7 +42,6 @@ export class AddProductComponent {
     if (this.isValid()) {
       // Trim is for leading and trailing, replace is for multiple spaces to single space conversion
       this.product.productName = this.product.productName.replace(/\s+/g, ' ').trim().toLowerCase();
-      this.product.category = this.product.category.replace(/\s+/g, ' ').trim().toLowerCase();
   
       this.productService.addProduct(this.product)
         .subscribe({
@@ -44,8 +59,6 @@ export class AddProductComponent {
   
   isValid(){
     const productPattern = /^[A-Za-z][A-Za-z0-9\s]{2,}$/;
-    const categoryPattern = /^[A-Za-z][A-Za-z\s]{2,}$/;
-
 
     return (
       this.product.productName.trim()!=='' && //to check empty or not
@@ -54,9 +67,7 @@ export class AddProductComponent {
       productPattern.test(this.product.productName) &&
 
       this.product.category.trim()!=='' &&
-      this.product.category.length >= 3 && 
-      this.product.category.length <= 32 &&
-      categoryPattern.test(this.product.category) &&
+      this.categories.includes(this.product.category) && 
 
       this.product.quantity > 0 &&
       this.product.price > 0 
