@@ -31,7 +31,7 @@ export class PlaceOrderComponent implements OnInit {
     const products = JSON.parse(localStorage.getItem('products') || '[]');
     console.log("inc",products)
     const product = products.find((p: any) => p._id === item.ProductId); 
-
+    //product && item.Quantity if both true allow
     if (product && item.Quantity < product.quantity) {
       item.Quantity++;
       this.updateCart();
@@ -39,7 +39,6 @@ export class PlaceOrderComponent implements OnInit {
       this.toastr.error('Cannot increase quantity beyond available stock!', 'Error');
     }
   }
-
 
   decreaseQuantity(item: any) {
     if (item.Quantity > 1) {

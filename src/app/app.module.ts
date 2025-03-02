@@ -16,10 +16,12 @@ import { MatIconModule } from '@angular/material/icon';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
     ProductListComponent,
     AddProductComponent,
     PlaceOrderComponent,

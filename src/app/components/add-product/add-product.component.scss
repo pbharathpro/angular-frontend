@@ -1,38 +1,37 @@
 .container{
     display: flex;
-    height: 80vh;
+    justify-content: center; /* Centers horizontally */
+
 }
+
 .form-container {
-    max-width: 500px;
-    /* margin: 20px auto; */
-    width: 50vh;
-    height: 75vh;
-    margin: auto;
-    margin-top: 20px;
+    width: 25%;
+    margin: 10px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 .form-title {
     color: #000000;
     margin-bottom: 20px;
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom: 2px solid #3498db;
 }
 
 .product-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 label {
@@ -113,9 +112,10 @@ input[type="checkbox"] {
     background-color: #7f8c8d;
 }
 
+
 .error-message {
     color: #e74c3c;
     font-size: 12px;
     margin-top: 4px;
+    min-height: 16px; 
 }
-

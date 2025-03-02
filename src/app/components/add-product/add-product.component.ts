@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../../Services/product.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,39 +9,67 @@ import { ToastrService } from 'ngx-toastr';
 
 })
 export class AddProductComponent {
-  productForm: FormGroup;
+  product={
+    productName: '',
+    category: '',
+    quantity: 0,
+    isActive: true,
+    price: 0
+  }
 
   constructor(
     private productService: ProductService,
-    private formBuilder: FormBuilder,
     private toastr: ToastrService
-  ) {
-    this.productForm = this.formBuilder.group({
-      productName: ['', Validators.required],
-      category: ['', Validators.required],
-      quantity: ['', [Validators.required, Validators.min(0)]],
-      isActive: [true],
-      price: ['', [Validators.required, Validators.min(1)]],
-
-    });
-  }
+  ) {}
 
   onSubmit() {
-    if (this.productForm.valid) {
-      const formValue = { ...this.productForm.value };
-      formValue.productName = formValue.productName.toLowerCase();
-      formValue.category = formValue.category.toLowerCase();
-      this.productService.addProduct(this.productForm.value)
+    if (this.isValid()) {
+      // Trim is for leading and trailing, replace is for multiple spaces to single space conversion
+      this.product.productName = this.product.productName.replace(/\s+/g, ' ').trim().toLowerCase();
+      this.product.category = this.product.category.replace(/\s+/g, ' ').trim().toLowerCase();
+  
+      this.productService.addProduct(this.product)
         .subscribe({
           next: (response) => {
-            console.log(response)
+            console.log(response);
             this.toastr.success('Product added successfully', 'Success');
-            this.productForm.reset();
+            this.resetForm();
           },
           error: (error) => {
             this.toastr.error(`${error.error.message}`);
           }
         });
     }
+  }
+  
+  isValid(){
+    const productPattern = /^[A-Za-z][A-Za-z0-9\s]{2,}$/;
+    const categoryPattern = /^[A-Za-z][A-Za-z\s]{2,}$/;
+
+
+    return (
+      this.product.productName.trim()!=='' && //to check empty or not
+      this.product.productName.length >= 3 && 
+      this.product.productName.length <= 32 && 
+      productPattern.test(this.product.productName) &&
+
+      this.product.category.trim()!=='' &&
+      this.product.category.length >= 3 && 
+      this.product.category.length <= 32 &&
+      categoryPattern.test(this.product.category) &&
+
+      this.product.quantity > 0 &&
+      this.product.price > 0 
+    );
+  }
+  
+  resetForm(){
+    this.product={
+      productName: '',
+      category: '',
+      quantity: 0,
+      isActive: true,
+      price: 0
+    };
   }
 }
