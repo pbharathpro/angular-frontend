@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from '../../Services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { categoryList } from 'src/app/constants/productCategories';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -21,7 +21,8 @@ export class AddProductComponent {
 
   constructor(
     private productService: ProductService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   onSubmit() {
@@ -35,6 +36,7 @@ export class AddProductComponent {
             console.log(response);
             this.toastr.success('Product added successfully', 'Success');
             this.resetForm();
+            this.router.navigate(['/']); 
           },
           error: (error) => {
             this.toastr.error(`${error.error.message}`);

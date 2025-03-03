@@ -7,6 +7,7 @@
         <input id="productName" type="text" [(ngModel)]="product.productName" name="productName"
           placeholder="Enter product name" #productName="ngModel" required minlength="3" maxlength="32"
           pattern="^[A-Za-z\s0-9]+$">
+          <!-- #productName is a ngmodel directive. it's like a local reference inside the template -->
         <div class="error-message" *ngIf="productName.invalid && (productName.dirty || productName.touched)">
           <div *ngIf="productName.errors?.['required']">Product name is required</div>
           <div *ngIf="productName.errors?.['minlength']">Product name must be at least 3 characters long</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../Services/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-place-order',
@@ -13,7 +14,8 @@ export class PlaceOrderComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -62,12 +64,12 @@ export class PlaceOrderComponent implements OnInit {
         userId: '67b845f9d8192f270f10cd70',
         productId: item.ProductId,  
         quantity: item.Quantity     
-
       };
       console.log()
       this.orderService.addOrder(orderRequest).subscribe({
         next: (response) => {
           this.toastr.success('Order placed successfully for product:');
+          this.router.navigate(['/']);
         },
         error: (error) => {
           console.error('Error placing order:', error);

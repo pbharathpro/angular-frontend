@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
       }
     });
 
-    this.searchService.currentSearchTerm.subscribe({
+    this.searchService.searchTerm.subscribe({
       next: (term) => {
         this.filterProducts(term);
       },
