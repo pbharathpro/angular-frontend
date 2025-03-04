@@ -15,7 +15,7 @@ export class ProductService {
 
   getProducts(filters:any={}): Observable<Product[]> {
     return this.http
-      .get<{ data:Product[] }>(`${this.apiUrl}/products`, { params: filters, withCredentials: true })
+      .get<{ data:Product[] }>(`${this.apiUrl}/products`, { params: filters})
       .pipe(
         map((response) => {
           console.log('API Response:', response);

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../Services/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CartItem } from 'src/app/Interfaces/cartItems.interface';
+import { Product } from 'src/app/Interfaces/product.interface';
 
 @Component({
   selector: 'app-place-order',
@@ -29,10 +31,10 @@ export class PlaceOrderComponent implements OnInit {
     }
   }
 
-  increaseQuantity(item: any) {
+  increaseQuantity(item: CartItem) {
     const products = JSON.parse(localStorage.getItem('products') || '[]');
     console.log("inc",products)
-    const product = products.find((p: any) => p._id === item.ProductId); 
+    const product = products.find((p: Product) => p._id === item.ProductId); 
     //product && item.Quantity if both true allow
     if (product && item.Quantity < product.quantity) {
       item.Quantity++;
@@ -42,14 +44,14 @@ export class PlaceOrderComponent implements OnInit {
     }
   }
 
-  decreaseQuantity(item: any) {
+  decreaseQuantity(item: CartItem) {
     if (item.Quantity > 1) {
       item.Quantity--;
       this.updateCart();
     }
   }
 
-  removeItem(item: any) {
+  removeItem(item: CartItem) {
     this.cartItems = this.cartItems.filter(i => i.ProductId !== item.ProductId); 
     this.updateCart();
   }
@@ -68,7 +70,7 @@ export class PlaceOrderComponent implements OnInit {
       console.log()
       this.orderService.addOrder(orderRequest).subscribe({
         next: (response) => {
-          this.toastr.success('Order placed successfully for product:');
+          this.toastr.success(`Order placed successfully for product: ${response.productName}`);
           this.router.navigate(['/']);
         },
         error: (error) => {

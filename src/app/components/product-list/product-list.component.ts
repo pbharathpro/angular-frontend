@@ -27,6 +27,11 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.searchService.searchTerm.subscribe((term) => {
+      this.filters.searchTerm = term.trim(); // Add searchTerm to filters
+      this.loadProducts(); // Reload products with search term applied
+    });
+  
     this.loadProducts();
   }
   applyFilters():void{
@@ -83,7 +88,7 @@ export class ProductListComponent implements OnInit {
   toggleWishlist(product: Product) {
     const index = this.wishlist.findIndex(item => item._id === product._id); //findIndex returns the index
     if (index > -1) {
-      this.wishlist.splice(index, 1); //splice removes (index,1) (product index, no of items to be deleted)
+      this.wishlist.splice(index,1); //splice removes (index,1) (product index, no of items to be deleted)
       this.toastr.info('Removed from wishlist', 'Wishlist');
     } else {
       this.wishlist.push(product);
